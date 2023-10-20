@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FloatButton } from 'antd';
-import "./App.scss";
+import "./App.css";
 import MainPage from "./components/MainPage/Main";
 import DownloadOutlined from "@ant-design/icons/lib/icons/DownloadOutlined";
 
