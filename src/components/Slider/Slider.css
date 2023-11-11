@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit");
+
+.logo-vertical {
+  display: flex;
+  align-self: center;
+  margin-top: 10px;
+  margin-left: 10px;
+  height: calc(40px + 2vmin);
+}
+
+.logo-text {
+  margin-left: 10px;
+  align-self: center;
+  font-size: calc(10px + 1.5vmin);
+  font-family: Kanit;
+  color: #fff;
+}
+
+.Menu {
+  margin-top: 20px;
+  display: flex;
+  align-self: center;
+  flex-wrap: wrap;
+}
+
+.logo-image{
+  margin:5px;
+}
