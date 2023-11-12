@@ -3,37 +3,15 @@ import {
   DesktopOutlined,
   HistoryOutlined,
 } from "@ant-design/icons";
-import { Menu, Layout, MenuProps } from "antd";
-import React, { useState } from "react";
+import { Menu, Layout } from "antd";
+import { useState } from "react";
 import logo from "../../assets/logo.svg";
 import "../Slider/Slider.css";
 
 const { Sider } = Layout;
 
-type MenuItem = Required<MenuProps>["items"][number];
-
-function getItem(
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuItem[]
-): MenuItem {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuItem;
-}
-
 export default function Slider() {
   const [collapsed, setCollapsed] = useState(false);
-
-  const items: MenuItem[] = [
-    getItem("Storage", "1", <CloudOutlined />),
-    getItem("Activity", "2", <DesktopOutlined />),
-    getItem("History", "3", <HistoryOutlined />),
-  ];
 
   return (
     <Sider
@@ -49,12 +27,21 @@ export default function Slider() {
       </div>
 
       <Menu
-        className="Menu"
         theme="dark"
         defaultSelectedKeys={["1"]}
         mode="inline"
-        items={items}
-      />
+        selectedKeys={["1"]}
+      >
+        <Menu.Item key="1" icon={<CloudOutlined />}>
+          <a href="/">DashBoard</a>
+        </Menu.Item>
+        <Menu.Item key="2" icon={<DesktopOutlined />}>
+          <a href="/activity">Activity</a>
+        </Menu.Item>
+        <Menu.Item key="3" icon={<HistoryOutlined />}>
+          <a href="/history">History</a>
+        </Menu.Item>
+      </Menu>
     </Sider>
   );
 }
