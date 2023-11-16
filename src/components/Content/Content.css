@@ -1,4 +1,4 @@
 .content{
-    display: flex;
+    display: grid;
     margin: 10px;
 }
