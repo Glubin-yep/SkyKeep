@@ -6,6 +6,8 @@ import History from "./History/History";
 import './Content.css'
 
 const { Content } = Layout;
+const { Footer } = Layout;
+
 
 function ContentLayout() {
  
@@ -18,7 +20,11 @@ function ContentLayout() {
           <Route path="/history" element={<History />} />
         </Routes>
       </Router>
+      <Footer style={{ textAlign: "center" }}>
+        SkyKeep ©2023 Created by Dmytro Chyr
+      </Footer>
     </Content>
+    
   );
 }
 
