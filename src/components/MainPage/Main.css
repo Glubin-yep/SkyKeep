@@ -1,7 +1,6 @@
 .content{
     display: grid;
-    padding-left: 16px;
-    padding-top: 16px;
+    padding: 16px;
     height: 100vh; 
     overflow-y: auto;
     overflow-x: hidden;
