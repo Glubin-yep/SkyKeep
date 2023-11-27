@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit");
+
+.layout {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-form {
+  max-width: 350px;
+}
+
+#login-form-forgot {
+  float: right;
+}
+#ant-col-rtl .login-form-forgot {
+  float: left;
+}
+.login-form-button {
+  width: 100%;
+}
+
+.logo-vertical {
+    display: flex;
+    align-content: flex-end;
+    flex-direction: column;
+    flex-wrap: nowrap;
+   
+}
+
+.logo-text {
+  margin-bottom: 15px;
+  align-self: center;
+  font-size: calc(15px + 1.5vmin);
+  font-family: Kanit;
+  color: #fff;
+}
+
+.logo-image {
+  margin: 24px;
+}
