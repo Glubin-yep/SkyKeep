@@ -43,9 +43,9 @@ const Slider: React.FC<SliderProps> = ({ onChangeContent }) => {
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
     >
-      <div className="logo-vertical">
-        <img className="logo-image" src={logo} alt=" " />
-        <span className="logo-text" hidden={collapsed}>
+      <div className="logo-vertical-slider">
+        <img className="logo-image-slider" src={logo} alt=" " />
+        <span className="logo-text-slider" hidden={collapsed}>
           Sky Keep
         </span>
       </div>
