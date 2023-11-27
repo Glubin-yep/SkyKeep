@@ -1,10 +1,12 @@
 import api from "../http";
 import { FileData } from "../Types/FileData";
+import AuthService from "./AuthService";
 
 export default class FileService {
   static async getAllFiles(): Promise<FileData[]> {
     try {
-      const response = await api.get("/files");
+      const user = await AuthService.getCurrentUser();
+      const response = await api.get("/files", { params: { user: user.id } });
       return response.data as FileData[];
     } catch (error) {
       console.error("Error while fetching files:", error);
@@ -25,7 +27,7 @@ export default class FileService {
 
       const [, filename] =
         response.headers["content-disposition"].split("filename=");
-        
+
       const link = document.createElement("a");
 
       link.href = window.URL.createObjectURL(blob);

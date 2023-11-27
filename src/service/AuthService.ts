@@ -35,4 +35,13 @@ export default class AuthService {
   static async logout(): Promise<any> {
     return api.post("auth/logout");
   }
+
+  static async getCurrentUser(): Promise<UserType> {
+    const userStr = localStorage.getItem("user");
+    if (userStr) {
+      return JSON.parse(userStr)
+    };
+  
+    return {} as UserType;
+  };
 }
