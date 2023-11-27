@@ -1,8 +1,9 @@
 import Meta from "antd/es/card/Meta";
 import { FileData } from "../../../Types/FileData";
 import { DeleteOutlined, DownloadOutlined } from "@ant-design/icons";
-import { Avatar, Card } from "antd";
+import { Avatar, Card, Typography } from "antd";
 import FileService from "../../../service/FileService";
+import "./FileCard.css"
 
 const formatFileSize = (size: number): string => {
   if (size < 1024) {
@@ -35,12 +36,18 @@ export default function FileCard({ data }: { data: FileData[] }) {
           />,
           <DeleteOutlined key="setting" />,
         ]}
+        
       >
-        <Meta
+        <Meta 
           avatar={
             <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
           }
-          title={item.originalName}
+          className="meta"
+          title={
+            <Typography.Text style={{ whiteSpace: "initial" }}>
+            {item.originalName}
+          </Typography.Text>
+          }
           description={formatFileSize(item.size)}
         />
       </Card>
