@@ -17,9 +17,9 @@ const Main: React.FC = () => {
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Slider onChangeContent={changeContent} />
-      <AntContent className="content">
+      <AntContent className="content" >
         {activeContent}
-        <Footer style={{ textAlign: "center" }}>
+        <Footer className="footer">
         SkyKeep ©2023 Created by Dmytro Chyr
       </Footer>
       </AntContent>
