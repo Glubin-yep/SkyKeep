@@ -1,16 +1,16 @@
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { Layout, Form, Input, Checkbox, Button } from "antd";
 import logo from "../../../assets/logo.svg";
-import "../Auth.css"
+import "../Auth.css";
 import AuthService from "../../../service/AuthService";
 
 function onFinish(values: any): void {
-    AuthService.registration(values.email,values.username ,values.password)
+  AuthService.registration(values.email, values.username, values.password)
     .then(() => {
       return (window.location.href = "/");
     })
     .catch((error) => {
-      alert( error.response.data.message);
+      alert(error.response.data.message);
     });
 }
 
@@ -67,10 +67,10 @@ const Registration: React.FC = () => {
             { required: true, message: "Please confirm your Password!" },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
-                return Promise.reject('The two passwords do not match!');
+                return Promise.reject("The two passwords do not match!");
               },
             }),
           ]}

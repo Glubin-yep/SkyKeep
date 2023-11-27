@@ -39,9 +39,9 @@ export default class AuthService {
   static async getCurrentUser(): Promise<UserType> {
     const userStr = localStorage.getItem("user");
     if (userStr) {
-      return JSON.parse(userStr)
-    };
-  
+      return JSON.parse(userStr);
+    }
+
     return {} as UserType;
-  };
+  }
 }

@@ -1,6 +1,6 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input } from "antd";
-import "../Auth.css"
+import "../Auth.css";
 import Layout from "antd/es/layout/layout";
 import logo from "../../../assets/logo.svg";
 import AuthService from "../../../service/AuthService";

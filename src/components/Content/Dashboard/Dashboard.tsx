@@ -2,13 +2,7 @@ import { useEffect, useState } from "react";
 import FileCard from "./FileCard";
 import FileService from "../../../service/FileService";
 import { FileData } from "../../../Types/FileData";
-import {
-  Col,
-  FloatButton,
-  Row,
-  UploadFile,
-  notification,
-} from "antd";
+import { Col, FloatButton, Row, UploadFile, notification } from "antd";
 import {
   DownloadOutlined,
   InboxOutlined,

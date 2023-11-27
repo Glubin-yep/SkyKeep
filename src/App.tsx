@@ -5,8 +5,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Auth/Login/Login";
 import Registration from "./components/Auth/Registration/Registration";
 
-
-
 const App: React.FC = () => {
   return (
     <div>
@@ -22,8 +20,6 @@ const App: React.FC = () => {
             <Route path="/auth/login" element={<Login />} />
           </Routes>
         </BrowserRouter>
-
-      
       </ConfigProvider>
     </div>
   );
