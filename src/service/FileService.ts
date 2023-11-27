@@ -44,4 +44,28 @@ export default class FileService {
       throw error;
     }
   }
+
+  static async uploadFile(options: any): Promise<any> {
+    const { onSuccess, onError, file, onProgress } = options;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const config = {
+      headers: { "Content-Type": "multipart/form-data" },
+      onProgress: (event: ProgressEvent) => {
+        onProgress({ percent: (event.loaded / event.total) * 100 });
+      },
+    };
+
+    try {
+      const { data } = await api.post("files", formData, config);
+
+      onSuccess();
+
+      return data;
+    } catch (err) {
+      onError({ err });
+    }
+  }
 }
