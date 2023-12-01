@@ -1,9 +1,7 @@
 import axios from "axios";
-import Cookies from "universal-cookie";
+import AuthService from "../service/AuthService";
 
-const cookies = new Cookies();
-
-const AuthToken = cookies.get("Authorization")?.token;
+const AuthToken = AuthService.getAuthToken();
 
 export const API_URL = import.meta.env.VITE_API_URL;
 

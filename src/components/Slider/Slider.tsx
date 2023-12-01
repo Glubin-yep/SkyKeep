@@ -3,6 +3,8 @@ import {
   CloudOutlined,
   DesktopOutlined,
   HistoryOutlined,
+  LogoutOutlined,
+  ProfileOutlined,
 } from "@ant-design/icons";
 import { Menu, Layout } from "antd";
 import logo from "../../assets/logo.svg";
@@ -10,6 +12,8 @@ import "../Slider/Slider.css";
 import DashBoard from "../Content/Dashboard/Dashboard";
 import Activity from "../Content/Activity/Activity";
 import History from "../Content/History/History";
+import Profile from "../Content/Profile/Profile";
+import Logout from "../Auth/Logout/Logout";
 
 const { Sider } = Layout;
 
@@ -30,6 +34,12 @@ const Slider: React.FC<SliderProps> = ({ onChangeContent }) => {
         break;
       case "3":
         onChangeContent(<History />);
+        break;
+      case "4":
+        onChangeContent(<Profile />);
+        break;
+      case "5":
+        onChangeContent(<Logout />);
         break;
       default:
         break;
@@ -63,6 +73,12 @@ const Slider: React.FC<SliderProps> = ({ onChangeContent }) => {
         </Menu.Item>
         <Menu.Item key="3" icon={<HistoryOutlined />}>
           <a>History</a>
+        </Menu.Item>
+        <Menu.Item key="4" icon={<ProfileOutlined />}>
+          <a>Profile</a>
+        </Menu.Item>
+        <Menu.Item key="5" icon={<LogoutOutlined />}>
+          <a>Logout</a>
         </Menu.Item>
       </Menu>
     </Sider>

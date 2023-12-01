@@ -5,9 +5,9 @@ export default class AuthService {
   static async login(email: string, password: string): Promise<UserType> {
     return api.post("auth/login", { email, password }).then((response) => {
       if (response.data.token) {
-        const { id, email } = response.data;
+        const { id, email, token } = response.data;
 
-        localStorage.setItem("user", JSON.stringify({ id, email }));
+        localStorage.setItem("user", JSON.stringify({ id, email, token }));
       }
 
       return response.data;
@@ -32,16 +32,27 @@ export default class AuthService {
       });
   }
 
-  static async logout(): Promise<any> {
-    return api.post("auth/logout");
+  static async logout(): Promise<boolean> {
+    localStorage.clear();
+    const logout = await api.get("auth/logout");
+    return logout.status === 200;
   }
 
-  static async getCurrentUser(): Promise<UserType> {
+  static getCurrentUser(): UserType {
     const userStr = localStorage.getItem("user");
     if (userStr) {
       return JSON.parse(userStr);
     }
 
     return {} as UserType;
+  }
+
+  static  getAuthToken(): string | null {
+    const userStr = localStorage.getItem("user");
+
+    if (userStr) {
+      return JSON.parse(userStr).token;
+    }
+    return null;
   }
 }
