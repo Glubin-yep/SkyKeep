@@ -47,12 +47,33 @@ export default class AuthService {
     return {} as UserType;
   }
 
-  static  getAuthToken(): string | null {
+  static getAuthToken(): string | null {
     const userStr = localStorage.getItem("user");
 
     if (userStr) {
       return JSON.parse(userStr).token;
     }
     return null;
+  }
+
+  static async isValidToken(): Promise<boolean> {
+    const userStr = localStorage.getItem("user");
+
+    if (userStr) {
+      const token = JSON.parse(userStr).token;
+
+      try {
+        const response = await api.get(`/auth/validate/${token}`);
+
+        if (response.data.statusCode === 401) {
+          return false;
+        }
+        return true;
+      } catch (error) {
+        return false;
+      }
+    }
+
+    return false;
   }
 }
