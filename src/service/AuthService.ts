@@ -23,9 +23,8 @@ export default class AuthService {
       .post("auth/register", { email, fullName, password })
       .then((response) => {
         if (response.data.token) {
-          const { id, email } = response.data;
-
-          localStorage.setItem("user", JSON.stringify({ id, email }));
+          const { id, email, token } = response.data;
+          localStorage.setItem("user", JSON.stringify({ id, email, token }));
         }
 
         return response.data;

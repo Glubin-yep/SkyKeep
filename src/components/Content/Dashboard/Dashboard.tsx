@@ -22,7 +22,7 @@ function DashBoard() {
       setFiles(data);
     }
     getData();
-  }, []);
+  }, [isUpload]);
 
   const onUploadSuccess = async (options: any) => {
     try {
@@ -30,7 +30,6 @@ function DashBoard() {
 
       setFileList([]);
 
-      window.location.reload();
     } catch (err) {
       notification.error({
         message: "Error!",
