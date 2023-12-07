@@ -81,6 +81,9 @@ const Slider: React.FC<SliderProps> = ({ onChangeContent }) => {
           <a>Logout</a>
         </Menu.Item>
       </Menu>
+      <span className="footer" hidden={collapsed}>
+        SkyKeep ©2023 Created by Dmytro Chyr
+      </span>
     </Sider>
   );
 };

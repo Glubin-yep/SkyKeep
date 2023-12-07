@@ -6,7 +6,6 @@
   margin-top: 10px;
   margin-left: 10px;
   height: calc(40px + 2vmin);
-  
 }
 
 .logo-text-slider {
@@ -17,7 +16,16 @@
   color: #fff;
 }
 
+.logo-image-slider {
+  margin: 5px;
+}
 
-.logo-image-slider{
-  margin:5px;
+.footer {
+  display: flex;
+  text-align: center;
+  align-self: center;
+  font-family: Kanit;
+  font-size: calc(4px + 0.65vmin);
+  margin: 10px;
+  color: #fff;
 }
