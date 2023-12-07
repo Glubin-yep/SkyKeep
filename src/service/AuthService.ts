@@ -5,9 +5,8 @@ export default class AuthService {
   static async login(email: string, password: string): Promise<UserType> {
     return api.post("auth/login", { email, password }).then((response) => {
       if (response.data.token) {
-        const { id, email, token } = response.data;
 
-        localStorage.setItem("user", JSON.stringify({ id, email, token }));
+        localStorage.setItem("user", JSON.stringify(response.data));
       }
 
       return response.data;
@@ -23,8 +22,7 @@ export default class AuthService {
       .post("auth/register", { email, fullName, password })
       .then((response) => {
         if (response.data.token) {
-          const { id, email, token } = response.data;
-          localStorage.setItem("user", JSON.stringify({ id, email, token }));
+          localStorage.setItem("user", JSON.stringify(response.data));
         }
 
         return response.data;

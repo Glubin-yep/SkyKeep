@@ -5,7 +5,7 @@ import AuthService from "./AuthService";
 export default class FileService {
   static async getAllFiles(): Promise<FileData[]> {
     try {
-      const user = await AuthService.getCurrentUser();
+      const user = AuthService.getCurrentUser();
       const response = await api.get("/files", { params: { user: user.id } });
       return response.data as FileData[];
     } catch (error) {
