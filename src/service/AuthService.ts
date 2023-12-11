@@ -5,7 +5,6 @@ export default class AuthService {
   static async login(email: string, password: string): Promise<UserType> {
     return api.post("auth/login", { email, password }).then((response) => {
       if (response.data.token) {
-
         localStorage.setItem("user", JSON.stringify(response.data));
       }
 
@@ -15,11 +14,12 @@ export default class AuthService {
 
   static async registration(
     email: string,
-    fullName: string,
+    firstName: string,
+    lastName: string,
     password: string
   ): Promise<UserType> {
     return api
-      .post("auth/register", { email, fullName, password })
+      .post("auth/register", { email, firstName, lastName, password })
       .then((response) => {
         if (response.data.token) {
           localStorage.setItem("user", JSON.stringify(response.data));

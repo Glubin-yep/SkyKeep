@@ -5,7 +5,7 @@ import "../Auth.css";
 import AuthService from "../../../service/AuthService";
 
 function onFinish(values: any): void {
-  AuthService.registration(values.email, values.username, values.password)
+  AuthService.registration(values.email, values.firstName, values.lastName, values.password)
     .then(() => {
       return (window.location.href = "/");
     })
@@ -40,15 +40,25 @@ const Registration: React.FC = () => {
           />
         </Form.Item>
         <Form.Item
-          name="username"
+          name="firstName"
           rules={[
-            { required: true, message: "Please input your Username!" },
-            { min: 6, message: "Min lenght 6!" },
+            { required: true, message: "Please input your First Name!" },
           ]}
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Username"
+            placeholder="First Name"
+          />
+        </Form.Item>
+        <Form.Item
+          name="lastName"
+          rules={[
+            { required: true, message: "Please input your Last Name!" },
+          ]}
+        >
+          <Input
+            prefix={<UserOutlined className="site-form-item-icon" />}
+            placeholder="Last Name"
           />
         </Form.Item>
         <Form.Item
