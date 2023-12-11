@@ -68,4 +68,14 @@ export default class FileService {
       onError({ err });
     }
   }
+
+  static async deleteFile(id: number): Promise<any> {
+    try {
+      const response = await api.delete("/files", { params: { id } });
+      return response.data as FileData[];
+    } catch (error) {
+      console.error("Error while fetching files:", error);
+      throw error;
+    }
+  }
 }

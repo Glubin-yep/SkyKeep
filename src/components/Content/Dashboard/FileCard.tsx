@@ -34,7 +34,9 @@ export default function FileCard({ data }: { data: FileData[] }) {
             key="download"
             onClick={() => FileService.downloadFile(item.id)}
           />,
-          <DeleteOutlined key="setting" />,
+          <DeleteOutlined 
+           key="delete"
+          onClick={() => FileService.deleteFile(item.id)} />,
         ]}
       >
         <Meta
