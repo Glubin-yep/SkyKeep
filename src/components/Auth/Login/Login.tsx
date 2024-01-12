@@ -4,9 +4,20 @@ import "../Auth.css";
 import Layout from "antd/es/layout/layout";
 import logo from "../../../assets/logo.svg";
 import AuthService from "../../../service/AuthService";
+import { GithubOutlined } from "@ant-design/icons";
 
 const onFinish = async (values: any) => {
   AuthService.login(values.email, values.password)
+    .then(() => {
+      return (window.location.href = "/");
+    })
+    .catch((error) => {
+      console.error("Error during login:", error);
+    });
+};
+
+const onGithubLogin = async () => {
+  AuthService.GithubLogin()
     .then(() => {
       return (window.location.href = "/");
     })
@@ -69,6 +80,13 @@ function Login() {
             Log in
           </Button>
           Or <a href="/auth/registration">register now!</a>
+          <Button
+            icon={<GithubOutlined />}
+            onClick={onGithubLogin}
+            className="login-form-button"
+          >
+            Log in with GitHub
+          </Button>
         </Form.Item>
       </Form>
     </Layout>

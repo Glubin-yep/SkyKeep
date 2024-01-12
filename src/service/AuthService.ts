@@ -73,4 +73,14 @@ export default class AuthService {
 
     return false;
   }
+
+  static async GithubLogin(): Promise<UserType> {
+    return api.get("auth/github").then((response) => {
+      if (response.data.token) {
+        localStorage.setItem("user", JSON.stringify(response.data));
+      }
+
+      return response.data;
+    });
+  }
 }
