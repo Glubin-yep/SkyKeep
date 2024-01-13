@@ -6,14 +6,12 @@ const AuthToken = AuthService.getAuthToken();
 export const API_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-  withCredentials: true,
+  withCredentials: false,
   baseURL: API_URL,
 });
 
 api.interceptors.request.use((config) => {
   config.headers.Authorization = `Bearer ${AuthToken}`;
-  config.headers["Accept"] = "application/json";
-  config.headers["Content-Type"] = "application/json";
   return config;
 });
 
