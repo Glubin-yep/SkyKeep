@@ -16,14 +16,8 @@ const onFinish = async (values: any) => {
     });
 };
 
-const onGithubLogin = async () => {
-  AuthService.GithubLogin()
-    .then(() => {
-      return (window.location.href = "/");
-    })
-    .catch((error) => {
-      console.error("Error during login:", error);
-    });
+const onGithubLogin = () => {
+  AuthService.GithubLogin();
 };
 
 function Login() {
