@@ -6,7 +6,7 @@ const AuthToken = AuthService.getAuthToken();
 export const API_URL = import.meta.env.VITE_API_URL;
 
 const api = axios.create({
-  withCredentials: false,
+  withCredentials: true,
   baseURL: API_URL,
 });
 
