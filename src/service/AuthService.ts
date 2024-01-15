@@ -110,10 +110,8 @@ export default class AuthService {
     //   });
 
     try {
-      window.open(
-        `https://discrete-akita-quality.ngrok-free.app/auth/github`,
-        "_self"
-      );
+      window.location.href =
+        "https://discrete-akita-quality.ngrok-free.app/auth/github";
     } catch (ex) {
       console.log(ex);
     }
