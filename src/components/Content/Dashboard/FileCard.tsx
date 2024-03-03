@@ -23,20 +23,16 @@ export default function FileCard({ data }: { data: FileData[] }) {
       <Card
         loading={false}
         className="card"
-        cover={
-          <img
-            alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-          />
-        }
+        cover={<iframe src="https://giphy.com/embed/3MvARAI7f2VBxSLrsC" />}
         actions={[
           <DownloadOutlined
             key="download"
             onClick={() => FileService.downloadFile(item.id)}
           />,
-          <DeleteOutlined 
-           key="delete"
-          onClick={() => FileService.deleteFile(item.id)} />,
+          <DeleteOutlined
+            key="delete"
+            onClick={() => FileService.deleteFile(item.id)}
+          />,
         ]}
       >
         <Meta

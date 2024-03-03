@@ -1,5 +1,6 @@
 import { UserType } from "../Types/User.type";
-import api from "../http";
+import api, { API_URL } from "../http";
+import Cookies from "universal-cookie";
 
 export default class AuthService {
   static async login(email: string, password: string): Promise<UserType> {
@@ -36,41 +37,38 @@ export default class AuthService {
   }
 
   static getCurrentUser(): UserType {
-    const userStr = localStorage.getItem("user");
-    if (userStr) {
-      return JSON.parse(userStr);
+    const cookies = new Cookies();
+    const cookie = cookies.get("Authorization");
+    if (cookie) {
+      return cookie;
+    } else {
+      const userStr = localStorage.getItem("user");
+      if (userStr) {
+        return JSON.parse(userStr);
+      }
     }
 
     return {} as UserType;
   }
 
-  static getAuthToken(): string | null {
-    const userStr = localStorage.getItem("user");
-
-    if (userStr) {
-      return JSON.parse(userStr).token;
-    }
-    return null;
-  }
-
   static async isValidToken(): Promise<boolean> {
-    const userStr = localStorage.getItem("user");
+    try {
+      const response = await api.get(`/auth/validate`);
 
-    if (userStr) {
-      const token = JSON.parse(userStr).token;
-
-      try {
-        const response = await api.get(`/auth/validate/${token}`);
-
-        if (response.data.statusCode === 401) {
-          return false;
-        }
-        return true;
-      } catch (error) {
+      if (response.data.statusCode === 401) {
         return false;
       }
+      return true;
+    } catch (error) {
+      return false;
     }
+  }
 
-    return false;
+  static async GithubLogin(): Promise<any> {
+    try {
+      window.location.href = API_URL + "auth/github";
+    } catch (ex) {
+      console.log(ex);
+    }
   }
 }
