@@ -13,35 +13,51 @@ import "./Dashboard.css";
 
 function DashBoard() {
   const [files, setFiles] = useState<FileData[]>([]);
-  const [isUpload, setIsUpload] = useState<boolean>(false);
+  const [isDragOver, setIsDragOver] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   useEffect(() => {
-    async function getData() {
-      const data = await FileService.getAllFiles();
-      setFiles(data);
-    }
     getData();
-  }, [isUpload]);
+  }, []);
+
+  async function getData() {
+    const data = await FileService.getAllFiles();
+    setFiles(data);
+  }
 
   const onUploadSuccess = async (options: any) => {
     try {
       await FileService.uploadFile(options);
-
       setFileList([]);
-
+      await getData();
+      setIsDragOver(false);
+      notification.success({
+        message: "Success!",
+        description: "File upload successfully completed",
+        duration: 2,
+      });
     } catch (err) {
       notification.error({
         message: "Error!",
         description: "File upload failed",
         duration: 2,
       });
+      console.log(err);
     }
   };
 
+  const onDragOver = (e: any) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const onDragLeave = () => {
+    setIsDragOver(false);
+  };
+
   return (
-    <div>
-      {isUpload ? (
+    <div onDragOver={onDragOver} onDragLeave={onDragLeave}>
+      {isDragOver || fileList.length > 0 ? (
         <Dragger
           customRequest={onUploadSuccess}
           fileList={fileList}
@@ -70,8 +86,8 @@ function DashBoard() {
       )}
 
       <FloatButton
-        icon={isUpload ? <DownloadOutlined /> : <UploadOutlined />}
-        onClick={() => setIsUpload(!isUpload)}
+        icon={isDragOver ? <DownloadOutlined /> : <UploadOutlined />}
+        onClick={() => setIsDragOver(!isDragOver)}
       />
     </div>
   );
