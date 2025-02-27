@@ -2,7 +2,7 @@ import { ConfigProvider, theme } from "antd";
 import "./App.css";
 import MainPage from "./components/MainPage/Main";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./components/Auth/Login/Login";
+import LoginPage from "./app/login/page";
 import Registration from "./components/Auth/Registration/Registration";
 import Error404 from "./components/ErrorPage/Error404";
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/auth/registration" element={<Registration />} />
-            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/login" element={<LoginPage />} />
             <Route path="*" element={<Error404 />} />
           </Routes>
         </BrowserRouter>
