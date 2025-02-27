@@ -10,15 +10,15 @@ const Logout: FC<LogoutProps> = () => {
 
   useEffect(() => {
     const performLogout = async () => {
-        try {
-          const logoutResult = await AuthService.logout();
-          setIsLogout(logoutResult);
-        } catch (error) {
-          console.error("Logout error:", error);
-          setIsLogout(false); 
-        }
-      };
-      performLogout();
+      try {
+        const logoutResult = await AuthService.logout();
+        setIsLogout(logoutResult);
+      } catch (error) {
+        console.error("Logout error:", error);
+        setIsLogout(false);
+      }
+    };
+    performLogout();
   }, []);
 
   const renderMessage = () => {
@@ -28,7 +28,11 @@ const Logout: FC<LogoutProps> = () => {
           status="success"
           title="Logout Successful"
           subTitle="You have successfully logged out."
-          extra={<a type="primary" href="/">Back to Home</a>}
+          extra={
+            <a type="primary" href="/">
+              Back to Home
+            </a>
+          }
         />
       );
     } else if (isLogout === false) {

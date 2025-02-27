@@ -22,11 +22,10 @@
 }
 
 .logo-vertical {
-    display: flex;
-    align-content: flex-end;
-    flex-direction: column;
-    flex-wrap: nowrap;
-   
+  display: flex;
+  align-content: flex-end;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .logo-text {

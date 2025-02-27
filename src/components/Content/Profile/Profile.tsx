@@ -74,8 +74,9 @@ const Profile: FC<ProfileProps> = () => {
           percent={(statistics?.usedStorage / statistics.maxStorage) * 100}
           showInfo={false}
         />
-         <div style={{ marginTop: "5px", textAlign: "center" }}>
-          {formatFileSize(statistics?.usedStorage)} used out of {formatFileSize(statistics?.maxStorage)}
+        <div style={{ marginTop: "5px", textAlign: "center" }}>
+          {formatFileSize(statistics?.usedStorage)} used out of{" "}
+          {formatFileSize(statistics?.maxStorage)}
         </div>
       </div>
     </Card>

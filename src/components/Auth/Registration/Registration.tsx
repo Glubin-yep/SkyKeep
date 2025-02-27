@@ -9,7 +9,7 @@ function onFinish(values: any): void {
     values.email,
     values.firstName,
     values.lastName,
-    values.password
+    values.password,
   )
     .then(() => {
       return (window.location.href = "/");

@@ -17,7 +17,7 @@ export default class AuthService {
     email: string,
     firstName: string,
     lastName: string,
-    password: string
+    password: string,
   ): Promise<UserType> {
     return api
       .post("auth/register", { email, firstName, lastName, password })

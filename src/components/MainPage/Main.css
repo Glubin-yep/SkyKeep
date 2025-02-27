@@ -1,8 +1,7 @@
-.content{
-    display: grid;
-    padding: 16px;
-    height: 100vh; 
-    overflow-y: auto;
-    overflow-x: hidden;
-
+.content {
+  display: grid;
+  padding: 16px;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }

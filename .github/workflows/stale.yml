@@ -5,11 +5,11 @@
 # https://github.com/actions/stale
 name: Dependabot auto-approve
 on: pull_request_target
-    
+
 permissions:
   contents: write
   pull-requests: write
-    
+
 jobs:
   dependabot:
     runs-on: ubuntu-latest

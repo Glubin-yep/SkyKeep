@@ -9,7 +9,7 @@ const { Content: AntContent } = Layout;
 
 const Main: React.FC = () => {
   const [activeContent, setActiveContent] = useState<React.ReactNode>(
-    <Dashboard />
+    <Dashboard />,
   );
 
   const changeContent = (content: React.ReactNode) => {
