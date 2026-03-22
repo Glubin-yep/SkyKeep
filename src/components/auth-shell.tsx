@@ -8,11 +8,7 @@ type AuthShellProps = {
   children: ReactNode;
 };
 
-export function AuthShell({
-  title,
-  description,
-  children,
-}: AuthShellProps) {
+export function AuthShell({ title, description, children }: AuthShellProps) {
   return (
     <div className="relative flex min-h-svh items-center justify-center overflow-hidden bg-muted/40 p-6 md:p-10">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.18),_transparent_45%),radial-gradient(circle_at_bottom,_rgba(148,163,184,0.16),_transparent_40%)]" />

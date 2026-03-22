@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie";
 
 import { UserType } from "@/Types/User.type";
-import api from "@/http";
+import api, { API_URL } from "@/http";
 
 export default class AuthService {
   static async login(email: string, password: string): Promise<UserType> {
@@ -67,5 +67,10 @@ export default class AuthService {
     } catch {
       return false;
     }
+  }
+
+  static githubLogin(): void {
+    const normalizedBaseUrl = API_URL.endsWith("/") ? API_URL : `${API_URL}/`;
+    window.location.href = `${normalizedBaseUrl}auth/github`;
   }
 }

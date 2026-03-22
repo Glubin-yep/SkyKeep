@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { FormEvent, useState } from "react";
+import { Github } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -59,6 +60,22 @@ export function LoginForm({
                   <AlertDescription>{error}</AlertDescription>
                 </Alert>
               ) : null}
+              <div className="grid gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => AuthService.githubLogin()}
+                  disabled={isSubmitting}
+                >
+                  <Github className="size-4" />
+                  Continue with GitHub
+                </Button>
+                <div className="relative text-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
+                  <span className="bg-card relative z-10 px-2">or</span>
+                  <div className="bg-border absolute inset-x-0 top-1/2 h-px -translate-y-1/2" />
+                </div>
+              </div>
               <div className="grid gap-6">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
