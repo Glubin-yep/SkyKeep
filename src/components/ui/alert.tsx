@@ -48,7 +48,10 @@ function AlertDescription({
 }: React.ComponentProps<"div">) {
   return (
     <div
-      className={cn("text-muted-foreground text-sm [&_p]:leading-relaxed", className)}
+      className={cn(
+        "text-muted-foreground text-sm [&_p]:leading-relaxed",
+        className,
+      )}
       {...props}
     />
   );

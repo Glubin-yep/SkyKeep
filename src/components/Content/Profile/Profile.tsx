@@ -1,12 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  Database,
-  Download,
-  FileStack,
-  Upload,
-} from "lucide-react";
+import { Database, Download, FileStack, Upload } from "lucide-react";
 
-import { EmptyState, ErrorState, LoadingState } from "@/components/shared/page-states";
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from "@/components/shared/page-states";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -47,7 +46,8 @@ const statisticCards = [
 ] as const;
 
 const Profile = () => {
-  const [statistics, setStatistics] = useState<UserStatisticsType>(initialStatistics);
+  const [statistics, setStatistics] =
+    useState<UserStatisticsType>(initialStatistics);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -131,9 +131,7 @@ const Profile = () => {
                 <CardTitle className="text-base">{item.label}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-semibold">
-                  {statistics[item.key]}
-                </p>
+                <p className="text-3xl font-semibold">{statistics[item.key]}</p>
               </CardContent>
             </Card>
           );

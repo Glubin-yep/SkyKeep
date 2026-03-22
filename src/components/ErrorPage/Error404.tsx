@@ -16,8 +16,7 @@ const Error404 = () => {
         </CardHeader>
         <CardContent className="space-y-4 text-center">
           <p className="text-muted-foreground text-sm">
-            The page you requested does not exist or was moved to another
-            route.
+            The page you requested does not exist or was moved to another route.
           </p>
           <Button asChild>
             <Link to="/dashboard">Go to dashboard</Link>

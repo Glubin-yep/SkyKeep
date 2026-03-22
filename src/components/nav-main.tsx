@@ -11,11 +11,7 @@ import {
 } from "@/components/ui/sidebar";
 import type { AppNavigationItem } from "@/lib/navigation";
 
-export function NavMain({
-  items,
-}: {
-  items: AppNavigationItem[];
-}) {
+export function NavMain({ items }: { items: AppNavigationItem[] }) {
   const location = useLocation();
 
   return (

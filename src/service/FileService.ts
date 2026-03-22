@@ -10,7 +10,8 @@ export default class FileService {
     const user = AuthService.getCurrentUser();
 
     const response = await api.get("/files", {
-      params: typeof user?.id === "number" && user.id > 0 ? { user: user.id } : {},
+      params:
+        typeof user?.id === "number" && user.id > 0 ? { user: user.id } : {},
     });
 
     return response.data as FileData[];

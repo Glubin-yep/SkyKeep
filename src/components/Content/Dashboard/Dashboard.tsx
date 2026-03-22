@@ -11,7 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { EmptyState, ErrorState, LoadingState } from "@/components/shared/page-states";
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from "@/components/shared/page-states";
 import { getErrorMessage } from "@/lib/app-utils";
 import { FileData } from "@/Types/FileData";
 import FileService from "@/service/FileService";
@@ -158,7 +162,9 @@ function DashBoard() {
   return (
     <div className="flex flex-col gap-6">
       <Card
-        className={isDragOver ? "border-primary shadow-lg shadow-primary/10" : undefined}
+        className={
+          isDragOver ? "border-primary shadow-lg shadow-primary/10" : undefined
+        }
       >
         <CardHeader className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <div className="space-y-1">

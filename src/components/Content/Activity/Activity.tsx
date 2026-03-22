@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 
 import { DataTable } from "@/components/shared/data-table";
-import { EmptyState, ErrorState, LoadingState } from "@/components/shared/page-states";
+import {
+  EmptyState,
+  ErrorState,
+  LoadingState,
+} from "@/components/shared/page-states";
 import { Button } from "@/components/ui/button";
 import {
   Card,

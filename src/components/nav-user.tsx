@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  ChevronsUpDown,
-  LogOut,
-  UserRound,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, UserRound } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -21,8 +17,8 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
+import { useSidebar } from "@/components/ui/sidebar-context";
 
 export function NavUser({
   user,

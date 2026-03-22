@@ -54,7 +54,10 @@ export function DataTable<T>({
                 {columns.map((column) => (
                   <td
                     key={column.key}
-                    className={cn("px-4 py-3 text-sm whitespace-nowrap", column.className)}
+                    className={cn(
+                      "px-4 py-3 text-sm whitespace-nowrap",
+                      column.className,
+                    )}
                   >
                     {column.render(row)}
                   </td>
