@@ -1,81 +1,68 @@
-import api from "../http";
-import { FileData } from "../Types/FileData";
+import type { AxiosProgressEvent } from "axios";
+
+import api from "@/http";
+import { FileData } from "@/Types/FileData";
+
 import AuthService from "./AuthService";
 
 export default class FileService {
   static async getAllFiles(): Promise<FileData[]> {
-    try {
-      const user = AuthService.getCurrentUser();
-      const response = await api.get("/files", { params: { user: user.id } });
-      return response.data as FileData[];
-    } catch (error) {
-      console.error("Error while fetching files:", error);
-      throw error;
-    }
+    const user = AuthService.getCurrentUser();
+
+    const response = await api.get("/files", {
+      params: typeof user?.id === "number" && user.id > 0 ? { user: user.id } : {},
+    });
+
+    return response.data as FileData[];
   }
 
   static async downloadFile(id: number): Promise<void> {
-    try {
-      const response = await api.get(`/files/${id}/download`, {
-        responseType: "blob",
-      });
+    const response = await api.get(`/files/${id}/download`, {
+      responseType: "blob",
+    });
 
-      const contentType = response.headers["content-type"];
-      console.log(contentType);
+    const contentType = response.headers["content-type"];
+    const blob = new Blob([response.data], { type: contentType });
+    const disposition = response.headers["content-disposition"] as
+      | string
+      | undefined;
+    const filename = disposition?.split("filename=")[1]?.replace(/"/g, "");
 
-      const blob = new Blob([response.data], { type: contentType });
+    const link = document.createElement("a");
 
-      const [, filename] =
-        response.headers["content-disposition"].split("filename=");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = filename || `file-${id}`;
 
-      const link = document.createElement("a");
-
-      link.href = window.URL.createObjectURL(blob);
-
-      link.download = filename;
-
-      document.body.appendChild(link);
-
-      link.click();
-
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error("Error while downloading file:", error);
-      throw error;
-    }
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
-  static async uploadFile(options: any): Promise<any> {
-    const { onSuccess, onError, file, onProgress } = options;
-
+  static async uploadFile(
+    file: File,
+    onProgress?: (percent: number) => void,
+  ): Promise<FileData> {
     const formData = new FormData();
     formData.append("file", file);
 
-    const config = {
+    const response = await api.post("files", formData, {
       headers: { "Content-Type": "multipart/form-data" },
-      onProgress: (event: ProgressEvent) => {
-        onProgress({ percent: (event.loaded / event.total) * 100 });
+      onUploadProgress: (event: AxiosProgressEvent) => {
+        const total = event.total ?? file.size;
+
+        if (!total) {
+          return;
+        }
+
+        onProgress?.(Math.round((event.loaded / total) * 100));
       },
-    };
+    });
 
-    try {
-      const { data } = await api.post("files", formData, config);
-
-      onSuccess();
-
-      return data;
-    } catch (err) {
-      onError({ err });
-    }
+    return response.data as FileData;
   }
 
-  static async deleteFile(id: number): Promise<any> {
-    try {
-      const response = await api.delete("/files", { params: { id } });
-      return response.data as FileData[];
-    } catch (error) {
-      console.error("Error while fetching files:", error);
-      throw error;
-    }
+  static async deleteFile(id: number): Promise<FileData[]> {
+    const response = await api.delete("/files", { params: { id } });
+    return response.data as FileData[];
   }
 }

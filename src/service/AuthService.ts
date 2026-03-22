@@ -1,16 +1,17 @@
-import { UserType } from "../Types/User.type";
-import api, { API_URL } from "../http";
 import Cookies from "universal-cookie";
+
+import { UserType } from "@/Types/User.type";
+import api from "@/http";
 
 export default class AuthService {
   static async login(email: string, password: string): Promise<UserType> {
-    return api.post("auth/login", { email, password }).then((response) => {
-      if (response.data.token) {
-        localStorage.setItem("user", JSON.stringify(response.data));
-      }
+    const response = await api.post("auth/login", { email, password });
 
-      return response.data;
-    });
+    if (response.data.token) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data as UserType;
   }
 
   static async registration(
@@ -19,56 +20,52 @@ export default class AuthService {
     lastName: string,
     password: string,
   ): Promise<UserType> {
-    return api
-      .post("auth/register", { email, firstName, lastName, password })
-      .then((response) => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-        }
+    const response = await api.post("auth/register", {
+      email,
+      firstName,
+      lastName,
+      password,
+    });
 
-        return response.data;
-      });
+    if (response.data.token) {
+      localStorage.setItem("user", JSON.stringify(response.data));
+    }
+
+    return response.data as UserType;
   }
 
   static async logout(): Promise<boolean> {
-    localStorage.clear();
-    const logout = await api.get("auth/logout");
-    return logout.status === 200;
+    localStorage.removeItem("user");
+    const response = await api.get("auth/logout");
+    return response.status === 200;
   }
 
-  static getCurrentUser(): UserType {
-    const cookies = new Cookies();
-    const cookie = cookies.get("Authorization");
-    if (cookie) {
-      return cookie;
-    } else {
-      const userStr = localStorage.getItem("user");
-      if (userStr) {
-        return JSON.parse(userStr);
-      }
+  static getCurrentUser(): UserType | null {
+    const userStr = localStorage.getItem("user");
+
+    if (userStr) {
+      return JSON.parse(userStr) as UserType;
     }
 
-    return {} as UserType;
+    const token = new Cookies().get("Authorization") as string | undefined;
+
+    if (!token) {
+      return null;
+    }
+
+    return {
+      token,
+      id: 0,
+      email: "",
+    };
   }
 
   static async isValidToken(): Promise<boolean> {
     try {
-      const response = await api.get(`/auth/validate`);
-
-      if (response.data.statusCode === 401) {
-        return false;
-      }
-      return true;
-    } catch (error) {
+      const response = await api.get("auth/validate");
+      return response.data.statusCode !== 401;
+    } catch {
       return false;
-    }
-  }
-
-  static async GithubLogin(): Promise<any> {
-    try {
-      window.location.href = API_URL + "auth/github";
-    } catch (ex) {
-      console.log(ex);
     }
   }
 }

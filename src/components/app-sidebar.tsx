@@ -1,23 +1,8 @@
 import * as React from "react";
-import {
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  History,
-  LayoutDashboardIcon,
-  LifeBuoy,
-  Map,
-  PieChart,
-  Send,
-  Settings2,
-  Shield,
-  SquareTerminal,
-} from "lucide-react";
+import { Link } from "react-router-dom";
 
+import logo from "@/assets/logo.svg";
 import { NavMain } from "@/components/nav-main";
-import { NavRecentFiles } from "@/components/nav-recent-files";
-import { NavSecondary } from "@/components/nav-secondary";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
@@ -27,95 +12,50 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar";
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Dashboard",
-      url: "/",
-      icon: LayoutDashboardIcon,
-      isActive: true,
-    },
-    {
-      title: "Activity",
-      url: "/activity ",
-      icon: Shield,
-    },
-    {
-      title: "History",
-      url: "/history",
-      icon: History,
-    },
-    {
-      title: "Settings",
-      url: "/settings",
-      icon: Settings2,
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-  navRecentFiles: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-};
+import { getInitials } from "@/lib/app-utils";
+import { appNavigationItems } from "@/lib/navigation";
+import AuthService from "@/service/AuthService";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const currentUser = AuthService.getCurrentUser();
+  const userEmail = currentUser?.email || "signed-in-user";
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link to="/dashboard">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+                  <img src={logo} alt="SkyKeep" className="size-5" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
+                  <span className="truncate font-medium">SkyKeep</span>
+                  <span className="text-muted-foreground truncate text-xs">
+                    Secure cloud storage
+                  </span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavRecentFiles recent_files={data.navRecentFiles} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavMain items={appNavigationItems} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser
+          user={{
+            name: userEmail,
+            email: userEmail,
+            initials: getInitials(userEmail),
+          }}
+        />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }
