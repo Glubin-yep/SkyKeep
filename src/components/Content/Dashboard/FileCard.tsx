@@ -1,53 +1,99 @@
-import Meta from "antd/es/card/Meta";
-import { FileData } from "../../../Types/FileData";
-import { DeleteOutlined, DownloadOutlined } from "@ant-design/icons";
-import { Avatar, Card, Typography } from "antd";
-import FileService from "../../../service/FileService";
-import "./FileCard.css";
+import {
+  Download,
+  FileArchive,
+  FileImage,
+  FileText,
+  FileVideo,
+  Trash2,
+} from "lucide-react";
 
-const formatFileSize = (size: number): string => {
-  if (size < 1024) {
-    return `${size} B`;
-  } else if (size < 1024 * 1024) {
-    return `${(size / 1024).toFixed(2)} KB`;
-  } else if (size < 1024 * 1024 * 1024) {
-    return `${(size / (1024 * 1024)).toFixed(2)} MB`;
-  } else {
-    return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`;
-  }
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatFileSize } from "@/lib/app-utils";
+import { FileData } from "@/Types/FileData";
+
+type FileCardProps = {
+  file: FileData;
+  onDownload: (id: number) => Promise<void> | void;
+  onDelete: (id: number) => Promise<void> | void;
+  actionInFlight?: "download" | "delete" | null;
 };
 
-export default function FileCard({ data }: { data: FileData[] }) {
-  return data.map((item) => (
-    <div key={item.id}>
-      <Card
-        loading={false}
-        className="card"
-        cover={<iframe src="https://giphy.com/embed/3MvARAI7f2VBxSLrsC" />}
-        actions={[
-          <DownloadOutlined
-            key="download"
-            onClick={() => FileService.downloadFile(item.id)}
-          />,
-          <DeleteOutlined
-            key="delete"
-            onClick={() => FileService.deleteFile(item.id)}
-          />,
-        ]}
-      >
-        <Meta
-          avatar={
-            <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel" />
-          }
-          className="meta"
-          title={
-            <Typography.Text style={{ whiteSpace: "initial" }}>
-              {item.originalName}
-            </Typography.Text>
-          }
-          description={formatFileSize(item.size)}
-        />
-      </Card>
-    </div>
-  ));
+function getFileIcon(mimetype: string) {
+  if (mimetype.startsWith("image/")) {
+    return FileImage;
+  }
+
+  if (mimetype.startsWith("video/")) {
+    return FileVideo;
+  }
+
+  if (
+    mimetype.includes("zip") ||
+    mimetype.includes("archive") ||
+    mimetype.includes("compressed")
+  ) {
+    return FileArchive;
+  }
+
+  return FileText;
+}
+
+export default function FileCard({
+  file,
+  onDownload,
+  onDelete,
+  actionInFlight = null,
+}: FileCardProps) {
+  const FileIcon = getFileIcon(file.mimetype);
+
+  return (
+    <Card className="h-full">
+      <CardHeader className="space-y-4">
+        <div className="bg-muted text-muted-foreground flex size-12 items-center justify-center rounded-xl">
+          <FileIcon className="size-5" />
+        </div>
+        <div className="space-y-1">
+          <CardTitle className="line-clamp-2 text-base">
+            {file.originalName}
+          </CardTitle>
+          <p className="text-muted-foreground text-xs break-all">
+            {file.filename}
+          </p>
+        </div>
+      </CardHeader>
+      <CardContent className="space-y-2 text-sm">
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-muted-foreground">Type</span>
+          <span className="max-w-[70%] truncate font-medium">
+            {file.mimetype || "Unknown"}
+          </span>
+        </div>
+        <div className="flex items-center justify-between gap-4">
+          <span className="text-muted-foreground">Size</span>
+          <span className="font-medium">{formatFileSize(file.size)}</span>
+        </div>
+      </CardContent>
+      <CardFooter className="gap-2">
+        <Button
+          variant="outline"
+          className="flex-1"
+          onClick={() => void onDownload(file.id)}
+          disabled={actionInFlight !== null}
+        >
+          <Download className="size-4" />
+          {actionInFlight === "download" ? "Downloading..." : "Download"}
+        </Button>
+        <Button
+          variant="destructive"
+          className="flex-1"
+          onClick={() => void onDelete(file.id)}
+          disabled={actionInFlight !== null}
+        >
+          <Trash2 className="size-4" />
+          {actionInFlight === "delete" ? "Deleting..." : "Delete"}
+        </Button>
+      </CardFooter>
+    </Card>
+  );
 }
